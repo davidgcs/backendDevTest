@@ -1,0 +1,23 @@
+{
+  "name": "backenddevtest",
+  "version": "1.0.0",
+  "description": "We want to offer a new feature to our customers showing similar products to the one they are currently seeing. To do this we agreed with our front-end applications to create a new REST API operation that will provide them the product detail of the similar products for a given one. [Here](./similarProducts.yaml) is the contract we agreed.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dalogax/backendDevTest.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dalogax/backendDevTest/issues"
+  },
+  "homepage": "https://github.com/dalogax/backendDevTest#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
