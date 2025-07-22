@@ -15,7 +15,7 @@ import { ActivatedRoute } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ItemDetail {
-  private route = inject(ActivatedRoute);
+  private readonly route = inject(ActivatedRoute);
   public readonly id: WritableSignal<string>;
 
   constructor() {

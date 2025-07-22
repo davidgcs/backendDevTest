@@ -1,1 +1,24 @@
-<p>home works!</p>
+<app-header></app-header>
+
+<div class="item-list">
+  <div class="item-list__search-bar">
+    <input class="item-list__input" type="text" placeholder="SEARCH" [ngModel]="search()"
+      (ngModelChange)="search.set($event)" />
+  </div>
+  <div class="item-list__products">
+
+    @if (filteredItems().length === 0 && search().trim().length > 0) {
+      <span>No results</span>
+    } @else {
+      @for(item of filteredItems(); track item.id){
+        <div id="item-card-{{item.id}}" class="item-card" [routerLink]="['/detail', item.id]">
+          <img [src]="item.imageUrl" alt="item.name" class="item-card__image"/>
+          <h2 class="item-card__name">{{ item.name }}</h2>
+          <p class="item-card__description">{{ item.description }}</p>
+          <p class="item-card__price">Price: {{ item.price | currency }}</p>
+          <button class="item-card__button" (click)="addToCart(item, $event)">Add to Cart</button>
+        </div>
+      }
+    }
+  </div>
+</div>
