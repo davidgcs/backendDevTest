@@ -1,0 +1,36 @@
+.item-detail{
+  display: flex;
+  background-color: #d5e8d4;
+  border: 1px solid #99d196;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  gap: 50px;
+  padding: 50px 0 20px 0;
+  margin-top: 20px;
+  &__image{
+    width: 50%;
+    display: flex;
+    img{
+      margin-left: auto;
+    }
+  }
+
+  .item-content{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 50%;
+    &__description{
+      background-color: #f2f8f2;
+      border: 1px solid black;
+      margin-right: auto;
+      min-width: 50%;
+    }
+    &__actions{
+      background-color: #f2f8f2;
+      border: 1px solid black;
+      margin-right: auto;
+      min-width: 50%;
+    }
+  }
+}
+

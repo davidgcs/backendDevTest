@@ -20,6 +20,10 @@ export class Cart {
     this.items$.update((store) => [...store, ...items]);
   }
 
+  getItemById(id: string): Item | undefined {
+    return this.items().find((i) => i.id === id);
+  }
+
   constructor() {
     this.items = [
       {
