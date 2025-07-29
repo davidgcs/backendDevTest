@@ -50,8 +50,10 @@ export class Cart {
     // load cart session
     const expireData = parseInt(localStorage.getItem('expire') || '0');
     if (new Date().getTime() > expireData) {
-      this.cart = JSON.parse(localStorage.getItem('cart') ?? '[]');
-    }
+      localStorage.removeItem('cart');
+      localStorage.removeItem('expire');
+    } else this.cart = JSON.parse(localStorage.getItem('cart') ?? '[]');
+
     effect(() => {
       // store cart in local storage for creating a session
       localStorage.setItem('cart', JSON.stringify(this.cart));
