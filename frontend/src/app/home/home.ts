@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { Header } from '../header/header';
 import { Item } from '../models/item';
-import { Cart } from '../cart';
+import { Cart } from '../services/cart';
 import { CurrencyPipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
@@ -18,7 +18,7 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
-  imports: [Header, CurrencyPipe, RouterModule, FormsModule],
+  imports: [Header, RouterModule, FormsModule],
   templateUrl: './home.html',
   styleUrl: './home.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -36,11 +36,10 @@ export class Home {
   );
 
   constructor() {
-    this.items = this.cartService.items;
+    this.items = this.cartService.itemsSignal;
     this.filteredItems.set(this.items());
 
     effect(() => this.applySearch(this.debouncedSearch()));
-
     effect(() => console.log('Filtered items updated:', this.filteredItems()));
   }
 
@@ -52,7 +51,9 @@ export class Home {
 
     this.filteredItems.set(
       this.items().filter((item) =>
-        item.name.toLowerCase().includes(q.trim().toLowerCase())
+        `${item.brand.toLowerCase()} ${item.model.toLowerCase()}`.includes(
+          q.trim().toLowerCase()
+        )
       )
     );
   }
@@ -60,7 +61,7 @@ export class Home {
   addToCart(item: Item, event: Event): void {
     event.stopPropagation();
 
-    this.cartService.updateItems([item]);
-    console.log(`Added ${item.name} to cart.`);
+    this.cartService.updateCart([item]);
+    console.log(`Added ${item.id} to cart.`);
   }
 }

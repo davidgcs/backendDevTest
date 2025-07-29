@@ -8,7 +8,7 @@ import {
   computed,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { Cart } from '../cart';
+import { Cart } from '../services/cart';
 
 @Component({
   selector: 'app-header',
@@ -26,7 +26,7 @@ export class Header {
   public nItems: Signal<number> = signal(0);
 
   constructor() {
-    this.nItems = computed(() => this.cartService.items().length);
+    this.nItems = computed(() => this.cartService.cartSignal().length);
   }
 
   navigateHome() {

@@ -10,12 +10,13 @@ import {
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Header } from '../header/header';
-import { Cart } from '../cart';
+import { Cart } from '../services/cart';
 import { Item } from '../models/item';
+import { CurrencyPipe, NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-item-detail',
-  imports: [Header],
+  imports: [Header, CurrencyPipe, NgOptimizedImage],
   templateUrl: './item-detail.html',
   styleUrl: './item-detail.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
