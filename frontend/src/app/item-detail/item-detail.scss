@@ -24,12 +24,40 @@
       border: 1px solid black;
       margin-right: auto;
       min-width: 50%;
+      padding: 15px;
     }
     &__actions{
       background-color: #f2f8f2;
       border: 1px solid black;
       margin-right: auto;
       min-width: 50%;
+    }
+    &__Price{
+      font-size: 12px;
+    }
+    &__CPU{
+      font-size: 12px;
+    }
+    &__RAM{
+      font-size: 12px;
+    }
+    &__Operating{
+      font-size: 12px;
+    }
+    &__Display{
+      font-size: 12px;
+    }
+    &__Battery{
+      font-size: 12px;
+    }
+    &__Cameras{
+      font-size: 12px;
+    }
+    &__Dimentions{
+      font-size: 12px;
+    }
+    &__Weight{
+      font-size: 12px;
     }
   }
 }

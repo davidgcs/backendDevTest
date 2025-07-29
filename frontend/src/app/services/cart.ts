@@ -6,7 +6,7 @@ import {
   signal,
   WritableSignal,
 } from '@angular/core';
-import { Item } from '../models/item';
+import { Item, ItemDetailModel } from '../models/item';
 import { HttpClient } from '@angular/common/http';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { environment } from '../../environments/environment.development';
@@ -18,7 +18,7 @@ export class Cart {
   private http = inject(HttpClient);
 
   private items$: Signal<Item[]> = toSignal(
-    this.http.get<Item[]>(environment.apiUrl + '/product'),
+    this.http.get<Item[]>(`${environment.apiUrl}/product/`),
     { initialValue: [] }
   );
   public readonly itemsSignal = this.items$;
@@ -42,8 +42,10 @@ export class Cart {
     this.cart$.update((store) => [...store, ...items]);
   }
 
-  getItemById(id: string): Item | undefined {
-    return this.items$().find((i) => i.id === id);
+  getItemById(id: string): Signal<ItemDetailModel> {
+    return toSignal(this.http.get(`${environment.apiUrl}/product/${id}`), {
+      initialValue: [] as any,
+    });
   }
 
   constructor() {

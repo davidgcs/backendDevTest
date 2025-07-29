@@ -9,7 +9,15 @@
             <h3>DESCRIPTION</h3>
             <h2 class="item-card__brand">{{ item()?.brand }}</h2>
             <h3 class="item-card__model">{{ item()?.model }}</h3>
-            <p class="item-card__price">Price: {{ item()?.price | currency }}</p>
+            <h3 class="item-card__Price">Price: {{ item()?.price | currency:'$'}}</h3>
+            <p class="item-card__CPU">CPU: {{ item()?.cpu }}</p>
+            <p class="item-card__RAM">RAM: {{ item()?.ram }}</p>
+            <p class="item-card__Operating">Operating system: {{ item()?.os }}</p>
+            <p class="item-card__Display">Display Resolution: {{ item()?.displayResolution }}</p>
+            <p class="item-card__Battery">Battery: {{ item()?.battery }}</p>
+            <p class="item-card__Cameras">Cameras: back {{ item()?.primaryCamera }} / front {{item()?.secondaryCmera}}</p>
+            <p class="item-card__Dimentions">Dimentions: {{ item()?.dimentions }}</p>
+            <p class="item-card__Weight">Weight: {{ item()?.weight }} g</p>
         </div>
         <div class="item-content__actions">
             <h3>ACTIONS</h3>

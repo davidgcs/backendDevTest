@@ -11,7 +11,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { Header } from '../header/header';
 import { Cart } from '../services/cart';
-import { Item } from '../models/item';
+import { Item, ItemDetailModel } from '../models/item';
 import { CurrencyPipe, NgOptimizedImage } from '@angular/common';
 
 @Component({
@@ -27,11 +27,15 @@ export class ItemDetail {
   private readonly cartService = inject(Cart);
 
   public readonly id: WritableSignal<string>;
-  public item!: Signal<Item | undefined>;
+  public item!: Signal<ItemDetailModel | undefined>;
 
   constructor() {
     this.id = signal(this.route.snapshot.paramMap.get('id') || '-1');
-    this.item = computed(() => this.cartService.getItemById(this.id()));
+    this.item = this.cartService.getItemById(this.id());
+
+    effect(() => {
+      console.log('Item changed', this.item());
+    });
 
     effect(() => {
       if (this.id() === '-1' || !this.item()) {
