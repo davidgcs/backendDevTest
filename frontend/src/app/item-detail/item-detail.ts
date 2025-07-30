@@ -11,7 +11,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { Header } from '../header/header';
 import { Cart } from '../services/cart';
-import { Item, ItemDetailModel } from '../models/item';
+import { CartItem, Item, ItemDetailModel } from '../models/item';
 import { CurrencyPipe, NgOptimizedImage } from '@angular/common';
 
 @Component({
@@ -27,7 +27,10 @@ export class ItemDetail {
   private readonly cartService = inject(Cart);
 
   public readonly id: WritableSignal<string>;
-  public item!: Signal<ItemDetailModel | undefined>;
+  public item: Signal<ItemDetailModel | undefined>;
+
+  public selectedColor = signal(0);
+  public selectedStorage = signal(0);
 
   constructor() {
     this.id = signal(this.route.snapshot.paramMap.get('id') || '-1');
@@ -44,7 +47,33 @@ export class ItemDetail {
     });
   }
 
+  onColorChanged(value: number) {
+    console.log('Color seleccionado:', value);
+    this.selectedColor.set(value);
+  }
+
   goHome(): void {
     this.router.navigate(['/']);
+  }
+
+  addToCart() {
+    const currentItem = this.item();
+    if (!currentItem) return;
+
+    if (this.selectedColor() == 0) {
+      this.selectedColor.set(currentItem.options.colors[0].code);
+    }
+
+    if (this.selectedStorage() == 0) {
+      this.selectedStorage.set(currentItem.options.storages[0].code);
+    }
+
+    let body: CartItem = {
+      id: currentItem.id,
+      colorCode: this.selectedColor(),
+      storageCode: this.selectedStorage(),
+    };
+
+    this.cartService.updateCart(currentItem, body);
   }
 }

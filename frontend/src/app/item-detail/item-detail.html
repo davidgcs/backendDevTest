@@ -21,6 +21,17 @@
         </div>
         <div class="item-content__actions">
             <h3>ACTIONS</h3>
+            <select name="color" id="color" (change)="selectedColor.set($any($event.target).value)">
+                @for (c of item()?.options?.colors; track c.code) {
+                <option [value]="c.code">{{c.name}}</option>
+                }
+            </select>
+            <select name="storage" id="storage" (change)="selectedStorage.set($any($event.target).value)">
+                @for (s of item()?.options?.storages; track s.code) {
+                <option [value]="s.code">{{s.name}}</option>
+                }
+            </select>
+            <button (click)="addToCart()">Add to cart</button>
         </div>
     </div>
 </div>

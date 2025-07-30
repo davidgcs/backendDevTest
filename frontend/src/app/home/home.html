@@ -12,8 +12,7 @@
     } @else {
       @for(item of filteredItems(); track item.id){
         <div id="item-card-{{item.id}}" class="item-card" [routerLink]="['/detail', item.id]">
-          <img [src]="item.imgUrl" alt="item.name" class="item-card__image"/>
-          <button class="item-card__button" (click)="addToCart(item, $event)">Add to Cart</button>
+          <img ngSrc="{{item.imgUrl}}" width="600" height="600" alt="item.name" class="item-card__image"/>
         </div>
       }
     }

@@ -26,7 +26,7 @@ export class Header {
   public nItems: Signal<number> = signal(0);
 
   constructor() {
-    this.nItems = computed(() => this.cartService.cartSignal().length);
+    this.nItems = computed(() => this.cartService.cartCount());
   }
 
   navigateHome() {

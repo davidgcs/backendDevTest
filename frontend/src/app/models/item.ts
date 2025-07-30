@@ -32,8 +32,8 @@ export interface ItemDetailModel {
   networkTechnology: string;
   nfc?: string;
   options: {
-    colors: string[];
-    storages: string[];
+    colors: { code: number; name: string }[];
+    storages: { code: number; name: string }[];
   };
   os: string;
   price: string;
@@ -48,4 +48,14 @@ export interface ItemDetailModel {
   usb: string;
   weight: string;
   wlan: string[];
+}
+
+export interface CartItem {
+  id: string;
+  colorCode: number;
+  storageCode: number;
+}
+
+export interface CartResponse {
+  count: number;
 }

@@ -10,7 +10,7 @@ import {
 import { Header } from '../header/header';
 import { Item } from '../models/item';
 import { Cart } from '../services/cart';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, NgOptimizedImage } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
@@ -18,7 +18,7 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
-  imports: [Header, RouterModule, FormsModule],
+  imports: [Header, RouterModule, FormsModule, NgOptimizedImage],
   templateUrl: './home.html',
   styleUrl: './home.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -26,7 +26,7 @@ import { FormsModule } from '@angular/forms';
 export class Home {
   private readonly cartService = inject(Cart);
 
-  public readonly items: Signal<Item[]> = signal([]);
+  public readonly items: Signal<Item[]> = this.cartService.itemsSignal;
   public readonly filteredItems: WritableSignal<Item[]> = signal([]);
   public search: WritableSignal<string> = signal('');
 
@@ -36,14 +36,17 @@ export class Home {
   );
 
   constructor() {
-    this.items = this.cartService.itemsSignal;
-    this.filteredItems.set(this.items());
-
+    effect(() => {
+      console.log('items effect', this.items());
+      const values = this.items();
+      this.filteredItems.set(values);
+    });
     effect(() => this.applySearch(this.debouncedSearch()));
     effect(() => console.log('Filtered items updated:', this.filteredItems()));
   }
 
   applySearch(q: string): void {
+    if (!this.items) return;
     if (!q || q.trim() === '') {
       this.filteredItems.set(this.items());
       return;
@@ -56,12 +59,5 @@ export class Home {
         )
       )
     );
-  }
-
-  addToCart(item: Item, event: Event): void {
-    event.stopPropagation();
-
-    this.cartService.updateCart([item]);
-    console.log(`Added ${item.id} to cart.`);
   }
 }
