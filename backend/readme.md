@@ -13,6 +13,12 @@ cd ./backendDevTest/backend
 ./gradlew clean build --refresh-dependencies
 ```
 
+### Open Docker app and run the Mocks
+
+```sh
+docker-compose up -d simulado influxdb grafana
+```
+
 ### Run the Project
 
 ```sh
@@ -28,3 +34,4 @@ Open your browser and navigate to `http://localhost:5000/swagger` (or the port s
 - Spring Boot 3.5.3
 - Gradle 8.14.3
 - Groovy 3.0.24
+- Docker

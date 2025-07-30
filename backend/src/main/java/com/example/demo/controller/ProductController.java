@@ -13,6 +13,15 @@ public class ProductController {
     @Autowired
     private ProductService service;
 
+    @GetMapping("/{productId}")
+    public ResponseEntity<?> getProductById(@PathVariable String productId) {
+        ProductDetail product = service.getProductById(productId);
+        if (product == null) {
+            return ResponseEntity.status(404).body("Product not found");
+        }
+        return ResponseEntity.ok(product);
+    }
+
     @GetMapping("/{productId}/similar")
     public ResponseEntity<?> getSimilarProducts(@PathVariable String productId) {
         ProductDetail[] response = service.getSimilarProducts(productId);
@@ -22,4 +31,5 @@ public class ProductController {
         }
         return ResponseEntity.ok(response);
     }
+
 }
